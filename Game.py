@@ -1,33 +1,46 @@
 import random
 
-print("=== Welcome to the GKS AI Rock-Paper-Scissors Game ===")
-print("Instructions: Type 'rock', 'paper', or 'scissors' to play. Type 'quit' to exit.")
+print("=== Welcome to the GKS AI Rock-Paper-Scissors Match ===")
+print("Instructions: Type 'rock', 'paper', or 'scissors'. Type 'quit' to exit.")
 
-# 1. Available choices for the game
 choices = ["rock", "paper", "scissors"]
 
-# 2. Start an infinite loop so the game keeps running
+# 1. Initialize Score Tracker Variables
+user_score = 0
+computer_score = 0
+
 while True:
     user_choice = input("\nYour Turn (rock/paper/scissors/quit): ").lower().strip()
     
     if user_choice == "quit":
-        print("Thanks for playing! Goodbye.")
-        break  # This breaks the loop and stops the game
+        print("\n=== MATCH OVER ===")
+        print(f"Final Score -> You: {user_score} | 🤖 AI: {computer_score}")
+        if user_score > computer_score:
+            print("🏆 You won the overall match! Brilliant job.")
+        elif user_score < computer_score:
+            print("🤖 AI won the overall match. Practice makes perfect!")
+        else:
+            print("🤝 The overall match ended in a tie!")
+        break
         
     if user_choice not in choices:
-        print("❌ Invalid input! Please check your spelling and try again.")
-        continue  # Skips the rest of the code and asks for input again
+        print("❌ Invalid input! Please try again.")
+        continue
 
-    # 3. Computer AI chooses a random option
     computer_choice = random.choice(choices)
     print(f"🤖 AI Computer chose: {computer_choice}")
 
-    # 4. Game Logic Matrix to find the winner
+    # 2. Logic Matrix with Live Score Updates
     if user_choice == computer_choice:
         print("🤝 It's a TIE!")
     elif (user_choice == "rock" and computer_choice == "scissors") or \
          (user_choice == "paper" and computer_choice == "rock") or \
          (user_choice == "scissors" and computer_choice == "paper"):
-        print("🎉 You WIN! Excellent move.")
+        print("🎉 You WIN this round!")
+        user_score += 1  # Adds 1 point to your score
     else:
-        print("💥 Computer AI Wins! Better luck next time.")
+        print("💥 Computer AI Wins this round!")
+        computer_score += 1  # Adds 1 point to the AI's score
+        
+    # 3. Print current score after every round
+    print(f"📊 Current Score -> You: {user_score} | 🤖 AI: {computer_score}")
